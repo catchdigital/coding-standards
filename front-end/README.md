@@ -1,10 +1,64 @@
 # Catch Front End Coding Standards
 
-[Back to overview](../)
-
----
-
 This document intends to give an overview of our general approach to front end development and should serve as a guide to get you started on most projects.  Please remember that this is a living document and will change over time as new ideas, methods, devices, browsers and W3C standards come about.
+
+# Contents
+
+- [HTML](#html)
+  - [Doctype](#doctype)
+  - [Style Guide](#style-guide)
+    - [Indentation](#indentation)
+- [Hello World!](#hello-world)
+- [Hello World!](#hello-world-1)
+    - [Line Lengths](#line-lengths)
+    - [Spacing](#spacing)
+- [CSS](#css)
+  - [File Architecture](#file-architecture)
+    - [Includes](#includes)
+    - [Base](#base)
+    - [Components](#components)
+  - [Style Guide](#style-guide-1)
+    - [Syntax](#syntax)
+      - [Indentation](#indentation-1)
+      - [Line Lengths](#line-lengths-1)
+    - [Spacing](#spacing-1)
+  - [Nesting](#nesting)
+    - [BEM and Nesting](#bem-and-nesting)
+  - [Variables](#variables)
+    - [Scoped Variables](#scoped-variables)
+  - [Grid](#grid)
+  - [Modules](#modules)
+    - [BEM](#bem)
+    - [Media Queries](#media-queries)
+    - [normalize.css](#normalizecss)
+  - [Building](#building)
+    - [Watching](#watching)
+    - [Grunt / Gulp etc.](#grunt--gulp-etc)
+- [JavaScript](#javascript)
+  - [Style Guide](#style-guide-2)
+    - [Syntax](#syntax-1)
+      - [Indentation](#indentation-2)
+      - [Line Lengths](#line-lengths-2)
+    - [Spacing](#spacing-2)
+    - [Control Blocks and Function Style](#control-blocks-and-function-style)
+    - [Operators](#operators)
+    - [IIFEs](#iifes)
+    - [Strict Mode](#strict-mode)
+    - [Variables](#variables-1)
+      - [Naming Conventions](#naming-conventions)
+      - [Hoisting & Scope](#hoisting-&-scope)
+      - [Namespacing & Grouping](#namespacing-&-grouping)
+    - [Functions](#functions)
+      - [Naming Functions](#naming-functions)
+      - [Pure Functions](#pure-functions)
+      - [Grouping](#grouping)
+      - [Arguments](#arguments)
+    - [Objects](#objects)
+    - [Arrays](#arrays)
+    - [jQuery](#jquery)
+      - [Limiting Scope](#limiting-scope)
+      - [Defining Plugins](#defining-plugins)
+      - [Binding to Elements](#binding-to-elements)
 
 # HTML
 All pages must use HTML in order to display anything in the browser, but while the raw markup is hidden from the end users, developers need to be able to quickly understand and interpret the HTML in order to work with it.  With this in mind, readability is key above everything else.

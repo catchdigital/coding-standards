@@ -8,8 +8,6 @@ This document intends to give an overview of our general approach to front end d
   - [Doctype](#doctype)
   - [Style Guide](#style-guide)
     - [Indentation](#indentation)
-- [Hello World!](#hello-world)
-- [Hello World!](#hello-world-1)
     - [Line Lengths](#line-lengths)
     - [Spacing](#spacing)
 - [CSS](#css)

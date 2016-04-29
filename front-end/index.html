@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Catch Front End CSS Examples</title>
+  <link rel="stylesheet" type="text/css" href="/build/styles.css">
+  <style type="text/css">
+    code,
+    pre {
+      display: block;
+      background: #ccc;
+      border: solid #aaa 1px;
+      padding: 1em;
+    }
+
+    .highlight {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <h1>Catch Front End CSS Examples</h1>
+        <p>A simple collection of examples</p>
+
+        <hr>
+
+        <br>
+        <h2>Card Component</h2>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="card">
+              <img src="https://images.unsplash.com/photo-1421977870504-378093748ae6?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=800&h=800&fit=crop&s=a3a944a8d5bec0acb85b668b9d534b49" alt="Placeholder Image" class="card__media">
+              <div class="card__content">
+                <h2>Card Title</h2>
+
+                <p>
+                  <a href="#">Read more</a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4 col-sm-buffer">
+            <div class="card card--image">
+              <img src="https://images.unsplash.com/photo-1421977870504-378093748ae6?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=800&h=800&fit=crop&s=a3a944a8d5bec0acb85b668b9d534b49" alt="Placeholder Image" class="card__media">
+              <div class="card__content">
+                <h2>Card Title</h2>
+
+                <p>
+                  <a href="#">Read more</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+<h3>.card</h3>
+<pre>
+&lt;div class=&quot;card&quot;&gt;
+  &lt;img src=&quot;...&quot; alt=&quot;...&quot; class=&quot;card__media&quot;&gt;
+  &lt;div class=&quot;card__content&quot;&gt;
+    &lt;h2&gt;Card Title&lt;/h2&gt;
+
+    &lt;p&gt;
+      &lt;a href=&quot;#&quot;&gt;Read more&lt;/a&gt;
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+<h3>.card.card--image</h3>
+<pre>
+&lt;div class=&quot;card<span class="highlight"> card--image</span>&quot;&gt;
+  &lt;img src=&quot;...&quot; alt=&quot;...&quot; class=&quot;card__media&quot;&gt;
+  &lt;div class=&quot;card__content&quot;&gt;
+    &lt;h2&gt;Card Title&lt;/h2&gt;
+
+    &lt;p&gt;
+      &lt;a href=&quot;#&quot;&gt;Read more&lt;/a&gt;
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h2>Grid Examples</h2>
+
+        <h3>Desktop only</h3>
+        <div class="row">
+          <div class="col-md-4">
+            <code>.col-md-4</code>
+          </div>
+
+          <div class="col-md-4">
+            <code>.col-md-4</code>
+          </div>
+
+          <div class="col-md-4">
+            <code>.col-md-4</code>
+          </div>
+        </div>
+
+        <h3>Desktop only (with spacing)</h3>
+        <div class="row">
+          <div class="col-md-4">
+            <code>.col-md-4</code>
+          </div>
+
+          <div class="col-md-4 col-md-buffer">
+            <code>.col-md-4.col-md-buffer</code>
+          </div>
+
+          <div class="col-md-4 col-md-buffer">
+            <code>.col-md-4.col-md-buffer</code>
+          </div>
+        </div>
+
+        <h3>Tablet and up (with spacing)</h3>
+        <div class="row">
+          <div class="col-sm-4">
+            <code>.col-sm-4</code>
+          </div>
+
+          <div class="col-sm-4 col-sm-buffer">
+            <code>.col-sm-4.col-sm-buffer</code>
+          </div>
+
+          <div class="col-sm-4 col-sm-buffer">
+            <code>.col-sm-4.col-sm-buffer</code>
+          </div>
+        </div>
+
+        <h3>Mobile and up</h3>
+        <div class="row">
+          <div class="col-xs-4">
+            <code>.col-xs-4</code>
+          </div>
+
+          <div class="col-xs-4">
+            <code>.col-xs-4</code>
+          </div>
+
+          <div class="col-xs-4">
+            <code>.col-xs-4</code>
+          </div>
+        </div>
+
+        <h3>Offsets</h3>
+        <div class="row">
+          <div class="col-sm-4 col-sm-offset-4">
+            <code>.col-sm-4.col-sm-offset-4</code>
+          </div>
+        </div>
+
+        <h3>Combined Offsets</h3>
+        <div class="row">
+          <div class="col-xs-6 col-xs-offset-3 col-md-offset-6">
+            <code>.col-xs-6.col-xs-offset-3.col-md-offset-6</code>
+          </div>
+        </div>
+
+        <h3>Bleeding</h3>
+        <div class="row row-bleed">
+          <div class="col-md-4">
+            <code>.row-bleed .col-md-4</code>
+          </div>
+
+          <div class="col-md-4">
+            <code>.row-bleed .col-md-4</code>
+          </div>
+
+          <div class="col-md-4">
+            <code>.row-bleed .col-md-4</code>
+          </div>
+        </div>
+
+        <div class="row row-bleed">
+          <div class="col-sm-4">
+            <code>.row-bleed .col-sm-4</code>
+          </div>
+
+          <div class="col-sm-4">
+            <code>.row-bleed .col-sm-4</code>
+          </div>
+
+          <div class="col-sm-4">
+            <code>.row-bleed .col-sm-4</code>
+          </div>
+        </div>
+
+        <div class="row row-bleed">
+          <div class="col-xs-4">
+            <code>.row-bleed .col-xs-4</code>
+          </div>
+
+          <div class="col-xs-4">
+            <code>.row-bleed .col-xs-4</code>
+          </div>
+
+          <div class="col-xs-4">
+            <code>.row-bleed .col-xs-4</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+</body>
+</html>

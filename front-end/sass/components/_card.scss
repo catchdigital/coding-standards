@@ -1,0 +1,39 @@
+.card {
+  position: relative;
+  border: solid $colour-grey-light $dimension-border-width;
+
+  &__media {
+    width: 100%;
+  }
+
+  &__content {
+    padding: $dimension-padding;
+
+    :first-child {
+      margin-top: 0;
+    }
+
+    :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &--image {
+    position: relative;
+    padding-bottom: 100%;
+    border: none;
+  }
+
+  &--image &__media,
+  &--image &__content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  &--image &__content {
+    top: auto;
+  }
+}

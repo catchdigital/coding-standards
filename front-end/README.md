@@ -63,12 +63,12 @@ All pages must use HTML in order to display anything in the browser, but while t
 
 ## Doctype
 HTML5 for websites and and XHTML 1.0 Transitional for emails.
-```
-// Websites
+```html
+<!-- Websites -->
 <!DOCTYPE html>
 
-// Emails
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Emails -->
+<!DOCTYPE html>
 ```
 
 ## Style Guide
@@ -76,14 +76,13 @@ This style guide should serve as some simple guidelines to help you craft HTML d
 
 ### Indentation
 Indent with 2 spaces.  Absolutely no tabs.  Each nested element requires indentation.
-```
-// Bad
+```html
+<!-- Bad -->
 <div>
     <h1>Hello World!</h1>
 </div>
 
-// Good
-// Bad
+<!-- Good -->
 <div>
   <h1>Hello World!</h1>
 </div>
@@ -94,13 +93,13 @@ No line length limits, but be sensible.
 
 ### Spacing
 Block elements (`main`, `section`, `header`, `div`, `h1`, `p` etc) on their own line
-```
-// Bad
+```html
+<!-- Bad -->
 <div>
   <ul><li>List item</li></ul>
 </div>
 
-// Good
+<!-- Good -->
 <div>
   <ul>
     <li>List item</li>
@@ -109,11 +108,11 @@ Block elements (`main`, `section`, `header`, `div`, `h1`, `p` etc) on their own 
 ```
 
 Inline elements (`a`, `span`, etc) can sit on the same line or on their own depending on preference
-```
-// Good
+```html
+<!-- Good -->
 <p>Lorem ipsum <a href="#">click here</a></p>
 
-// Also good
+<!-- Also Good -->
 <p>
   Lorem ipsum
   <a href="#">click here</a>
@@ -121,11 +120,11 @@ Inline elements (`a`, `span`, etc) can sit on the same line or on their own depe
 ```
 
 Add a space between each attribute
-```
-// Bad
+```html
+<!-- Bad -->
 <input type="text" name="first-name"value="Catch"class="control__input">
 
-// Good
+<!-- Good -->
 <input type="text" name="first-name" value="Catch" class="control__input">
 ```
 *Note: always use `"` for attributes NEVER `'`*
@@ -171,7 +170,7 @@ Readability is key, SASS allows you to do great things, but can often lead to a 
 
 #### Indentation
 Indent with 2 spaces.  Absolutely no tabs.
-```
+```scss
 // Bad
 h1 {
     text-transform: uppercase;
@@ -192,7 +191,7 @@ Soft (desirable) limit of **80**, hard limit of **120**.
  - Trailing curly braces on their own line `}`
  - Each declaration should be on it's own line even if there is just one declaration per selector
 
-```
+```scss
 // Bad
 input[type="number"] { border: solid grey 1px;}
 
@@ -212,7 +211,7 @@ input[type="tel"] {
 ```
 
 Ensure there's a line between each CSS rule, even those that are nested.
-```
+```scss
 // Bad
 h1 {
   font-size: 3rem;
@@ -264,7 +263,7 @@ p {
 Try not to nest too much.  Nesting leads to unnecessary specificity in your CSS which makes it rigid and hard to edit.
 
 Consider that:
-```
+```scss
 .field-carousel {
   .carousel {
     .carousel__item {
@@ -278,7 +277,7 @@ Consider that:
 }
 ```
 Compiles to:
-```
+```css
 .field-carousel .carousel .carousel__item span a {
   display: none;
 }
@@ -286,7 +285,7 @@ Compiles to:
 
 Try not to reflect the HTML structure with nesting.  This is a really bad route to take, is usually completely unnecessary and will cause problems when you need to amend styles in media queries etc.
 
-```
+```scss
 // No one wants to be doing this.  If you can simplify, then please do!
 @media (min-width: 768px) {
   .field-carousel .carousel .carousel__item span a {
@@ -297,7 +296,7 @@ Try not to reflect the HTML structure with nesting.  This is a really bad route 
 
 ### BEM and Nesting
 Nesting in SASS is a really great way of writing BEM quickly and in a less error-prone manner:
-```
+```scss
 .card {
   border: solid grey 1px;
 
@@ -316,7 +315,7 @@ Nesting in SASS is a really great way of writing BEM quickly and in a less error
 ```
 
 Compiles to:
-```
+```css
 .card {
   border: solid grey 1px;
 }
@@ -337,7 +336,7 @@ No nested CSS, no specificity, just semantic and clean OOCSS styles which are ea
 
 ## Variables
 Variables are great for storing units, integers and colour values. Try to namespace and group variables by their usage like so for more consistency and clarity when away from their use.
-```
+```scss
 // Colours
 $colour-red: #f00;
 $colour-blue: #00f;
@@ -348,7 +347,7 @@ $dimension-padding: 20px;
 ```
 
 For variable variations consider using modifiers on top of existing variable names
-```
+```scss
 // Colour variations
 $colour-red: #f00;
 $colour-red-dark: darken(#f00, 20%);
@@ -360,7 +359,7 @@ $dimension-border-radius-lg: ($dimension-border-radius * 2);
 
 ### Scoped Variables
 You can scope variables inside selectors to avoid having a master list of unrelated unit/colour values.  When doing this, remember to ensure that you leave a space before the declarations for that rule-set.
-```
+```scss
 .input {
   $height: 30px;
 
@@ -379,7 +378,7 @@ Modules are self contained sets of styling that should be reusable across the we
 
 ### BEM
 Block Element Modifier (BEM) is a modular approach to writing CSS. You can [read more about BEM here](http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/) to get started.  Using BEM is a simple way of organising and structuring your CSS and opens up your CSS for easy extension.
-```
+```scss
 // Block (wraps elements)
 .form-control {
   ...
@@ -404,7 +403,7 @@ Block Element Modifier (BEM) is a modular approach to writing CSS. You can [read
 ### Media Queries
 Media queries should be used inversely using `min-width` to ensure websites stay mobile first.  To compliment the bootstrap grid, there are some preset variables to use in your media queries to ensure everyone's on the same page:
 
-```
+```scss
 @media (min-width: $screen-xs-min) {
   // At least 480px;
 }
@@ -423,7 +422,7 @@ Media queries should be used inversely using `min-width` to ensure websites stay
 ```
 
 Media queries should sit at the bottom of a SASS file to target contextual rules like so:
-```
+```scss
 // form-control.scss
 .form-control {
   ...
@@ -439,7 +438,7 @@ Media queries should sit at the bottom of a SASS file to target contextual rules
 ```
 
 Don't do this:
-```
+```scss
 // form-control.scss
 .form-control {
   ...
@@ -511,7 +510,7 @@ Readability is key.  Above everything else, always try and name things sensibly 
 
 #### Indentation
 Indent with 2 spaces.  Absolutely no tabs
-```
+```js
 // Bad
     var foo = 'bar';
 
@@ -524,7 +523,7 @@ Soft (desirable) limit of **80**, hard limit of **120**.
 
 ### Spacing
 Introduce spacing to ensure that parts of code are sensibly grouped into their various roles
-```
+```js
 var val = 1;
 var id;
 
@@ -547,7 +546,7 @@ function init(opts) {
 
 ### Control Blocks and Function Style
 `if`, `for` etc. should always have a space either side of the parenthesis `()`.  Always use curly braces, even for single lines.  Functions should have no space before the parens.
-```
+```js
 // Bad
 if(someVal){
   someVal += 1;
@@ -590,7 +589,7 @@ function(i) {
 
 ### Operators
 Use spaces with operators
-```
+```js
 var c = a + b;
 ```
 
@@ -598,14 +597,14 @@ var c = a + b;
 Instantly Invoked Function Expressions, or closures are used to isolate the scope of your javascript file.  If you've ever used jQuery in `noConflict()` mode the chances are you've come across one of these before.
 
 Always ensure there is a trailing comma at the end of the IIFE to avoid *invokception* through code concatenation
-```
+```js
 (function() {
   // JavaScript magic goes here
 })();
 ```
 
 Variables from outside the IIFE's scope can be passed in via reference like so:
-```
+```js
 (function($) {
   // jQuery jazz goes here
 })(jQuery);
@@ -613,7 +612,7 @@ Variables from outside the IIFE's scope can be passed in via reference like so:
 
 ### Strict Mode
 Always enable strict mode at the top of your IFFE to ensure more predictable and consistent behaviour from browsers:
-```
+```js
 (function() {
   'use strict';
 
@@ -623,12 +622,12 @@ Always enable strict mode at the top of your IFFE to ensure more predictable and
 
 ### Variables
 Always use the `var` keyword to declare a variable.  Not doing so will populate the global scope in strict mode which is bad times fo your and your dependencies.
-```
+```js
 var foo = 'bar';
 ```
 
 Always declare each variable on a new line with a new var keyword
-```
+```js
 var foo = 'bar';
 var bar = foo;
 var baz = {};
@@ -636,25 +635,25 @@ var baz = {};
 
 #### Naming Conventions
 Always use camel casing for no-specific variables
-```
+```js
 var myObject = {
   value: 1
 }
 ```
 
 Prefix any jQuery object with a `$` for readability
-```
+```js
 var $myDiv = $('div');
 ```
 
 Constant like values (those that will never be changed once set) can be styled like so:
-```
+```js
 var PLUGIN_NAME = 'my-plugin';
 ```
 
 #### Hoisting & Scope
 Declare all variables at the top of their scope; you can always assign them later if you need to.
-```
+```js
 function objectLength(obj) {
   var length = 0;
   var prop;
@@ -668,7 +667,7 @@ function objectLength(obj) {
 ```
 
 Since we write all our JS inside IFFEs, all variables should be declared at the top of the closure after declaring strict mode
-```
+```js
 (function($) {
   'use strict';
 
@@ -689,7 +688,7 @@ More detailed information on hoisting [can be found here](https://github.com/air
 #### Namespacing & Grouping
 Sometimes it makes sense to group variables into objects for cleaner and more semantic JS
 
-```
+```js
 var module = {
   $header: $('.module-header'),
   $content: $('.module-content')
@@ -710,7 +709,7 @@ Functions are first class objects, which gives them extreme flexibility.  Our ad
 
 #### Naming Functions
 You should always endeavour to name your functions to make debugging as easy as possible and avoid too many stack traces plagued by `(anonymous function)`:
-```
+```js
 startCarousel(function carouselInitCallback(e) {
   console.trace(e);
 });
@@ -724,7 +723,7 @@ Object {...}
 
 #### Pure Functions
 Although not always practical, try to make functions self contained to avoid any nasty surprises in your JavaScript.  Pure functions always return a value and do not alter values from outside their scope
-```
+```js
 // Pure
 function incrementCounter(counter, increment) {
   counter.value += parseInt(increment, 10);
@@ -746,7 +745,7 @@ myCounter.value = incrementCounter(myCounter, 10);
 
 #### Grouping
 Keeping JS as DRY (Don't Repeat Yourself) as possible is paramount to creating clean and concise code.  It's always a good idea to group bits of code which will be invoked more than once and always need computation like so:
-```
+```js
 // Calculate position on load
 calculateModulePosition($module);
 
@@ -769,7 +768,7 @@ function calculateModulePosition($module) {
 
 #### Arguments
 When writing functions that accept arguments it's often easier to accept a single object argument for changeable values:
-```
+```js
 // Initial code
 function createModule(width, height, done) {
   width = width || 300;
@@ -827,7 +826,7 @@ function createModule(opts, done) {
 Objects are the building blocks of JavaScript.  Functions are objects as are Arrays, which often gets confusing, especially when it comes to array like objects
 
 You should always define objects using the literal notation
-```
+```js
 // Don't do this
 var defaults = new Object();
 
@@ -836,7 +835,7 @@ var defaults = {};
 ```
 
 One thing that simple objects are incredibly useful for is key, value parings like associative arrays in PHP.
-```
+```js
 var defaults = {
   width: 300
 };
@@ -854,7 +853,7 @@ function getDefault(key) {
 
 ### Arrays
 Just like objects, you should always define arrays using the literal notation
-```
+```js
 // Don't do this
 var list = new Array();
 
@@ -867,7 +866,7 @@ jQuery is very powerful and often overlooked for its simplicity in shimming the 
 
 #### Limiting Scope
 Using parent scopes is more performance friendly and avoids querying the entire DOM.  It also ensures there a solid relationship between larger plugins/modules/blocks and their child elements.
-```
+```js
 var elements = {
   $module: $('.module')
 };
@@ -878,7 +877,7 @@ elements.$footer = elements.$module.find('.module__footer');
 
 #### Defining Plugins
 Here's a simple (and contrived), but flexible approach to creating jQuery plugins:
-```
+```js
 (function($) {
   // Define jQuery plugin
   $.fn.myPlugin = function myPluginDefinition(opts) {
@@ -912,10 +911,12 @@ Here's a simple (and contrived), but flexible approach to creating jQuery plugin
 Use data attributes to link functionality to elements that exist in the DOM.  Using classes can cause conflicts with CSS and should be avoided whilst using IDs is inflexible.
 
 Another advantage of using data attributes is that they can hold data which can be used to initialise plugins which creates a seamless link from back to front:
-```
-// HTML
+```html
+<!-- HTML -->
 <div data-plugin-init="some-data"></div>
+```
 
+```js
 // JS
 $('[data-plugin-init]').each(function() {
   $(this).myPlugin({

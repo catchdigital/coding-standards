@@ -73,3 +73,43 @@ Never ignore trailing spaces again.  (Kind of redundant with the afformentioned 
 #### [Sublime CodeIntel](https://github.com/SublimeCodeIntel/SublimeCodeIntel)
 When it works, this is seriously legit.  (Takes a bit of setup)
 
+
+## VSCode
+
+### Settings
+
+Hit `CMD + SHIFT + P` to open the Command Pallet and type `Preferences: Open Settings (JSON)` and add the following settings if not set.
+
+```json
+{
+  "prettier.singleQuote": true,
+  "prettier.bracketSpacing": true,
+  "editor.tabSize": 2,
+  "files.trimTrailingWhitespace": true,
+  "prettier.htmlWhitespaceSensitivity": "strict",
+  "diffEditor.ignoreTrimWhitespace": false
+}
+```
+
+### Plugins
+
+#### [Bracket Pair Colorizer](https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer)
+Great for debugging
+
+#### [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
+Adds syntax highlighting, commands, hover tips, and linting for Dockerfile and docker-compose files.
+
+#### [DotENV](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv)
+Support for dotenv file syntax
+
+#### [GitLens — Git supercharged](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+Supercharge the Git capabilities built into Visual Studio Code — Visualize code authorship at a glance via Git blame annotations and code lens, seamlessly navigate and explore Git repositories, gain valuable insights via powerful comparison commands, and so much more
+
+#### [Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme)
+Material Design Icons for Visual Studio Code
+
+#### [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+Code formatter using prettier
+
+#### [Twig](https://marketplace.visualstudio.com/items?itemName=whatwedo.twig)
+Code formatter using prettier

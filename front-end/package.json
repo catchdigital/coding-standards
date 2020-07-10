@@ -1,6 +1,6 @@
 {
   "name": "catch-front-end",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Front end style guide and kick starter files for Catch Digital 2016",
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,9 @@
     "url": "https://github.com/catchdigital/coding-standards.git"
   },
   "author": "Stuart Wilson <s.wilson@catchdigital.com>",
+  "contributors": [
+    "George Phillips <g.phillips@catchdigital.com>"
+  ],
   "license": "MIT",
   "dependencies": {
     "bootstrap-sass": "^3.3.6",

@@ -129,6 +129,20 @@ Add a space between each attribute
 ```
 *Note: always use `"` for attributes NEVER `'`*
 
+Always associate a label with every form control. Use a for attribute on the ( label ) element linked to the id attribute of the form element, or using WAI-ARIA attributes. In specific situations it may be acceptable to hide ( label ) elements visually, but in most cases labels are needed to help all readers understand the required input.
+
+```html
+<!-- Bad -->
+<input type="text">
+
+<!-- Good -->
+<label for="username">Username</label>
+<input id="username" type="text" name="username">
+
+<!-- Also good -->
+<input id="username" type="text" aria-label="username">
+```
+
 # CSS
 Here at Catch we use SASS (SCCS syntax) and Autoprefixer to author CSS.  SASS provides a solid set of features for writing clean and concise styles with minimal effort and repetition, while Autoprefixer ensures that our final CSS ships with the latest vendor prefixes.
 
@@ -371,7 +385,7 @@ You can scope variables inside selectors to avoid having a master list of unrela
 ## Grid
 Moving forward we are using the Bootstrap grid system to offer a consistent and flexible way of laying out elements in templates.  You can [read more about this grid here](http://getbootstrap.com/css/#grid).
 
-The grid should be used to arrange and organise elements on the page.  With this in mind, the brand specific styles you create should rely on an outer grid to contain it, rather than incorporating their own bespoke dimensions.  This will ensure that your CSS is a flexible and reusable as possible.
+The grid should be used to arrange and organise elements on the page.  With this in mind, the brand specific styles you create should rely on an outer grid to contain it, rather than incorporating their own bespoke dimensions. This will ensure that your CSS is a flexible and reusable as possible.
 
 ## Modules
 Modules are self contained sets of styling that should be reusable across the website.  Don't worry about being too granular, it's fine to have the styling of generic form elements in a single module file for instance.
@@ -453,6 +467,17 @@ Don't do this:
 }
 ```
 
+### Preferred units
+Create a base font size
+
+For fonts use ems / rems based off the base size
+
+For padding use ems if appropriate
+
+For line-height use unitless
+
+
+
 ### normalize.css
 All projects should utilise `normalize.css` for basic element resets to ensure that styles start off consistently for all browsers.
 
@@ -502,8 +527,10 @@ Here at Catch, our JS needs are quite minimal.  With this in mind, these guideli
 
 ***Note**: This guide assumes a basic understanding of JavaScript.  If there's anything that you'd like clarifying, the chances are it's already been asked on Stack Overflow, but sometimes a good, old fashioned chat is better, so come and grab someone!*
 
+***Note 2**: This guide assumes you are using Babel, and requires that you use babel-preset-env or the equivalent. It also assumes you are installing shims/polyfills in your app, with babel-polyfill or the equivalent.*
+
 ## Style Guide
-This style guide is heavily influenced by the [Airbnb ES5 Style Guide](https://github.com/airbnb/javascript/tree/master/es5).  Please have a read through this as well if you have time.
+This style guide is heavily influenced by the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript) and [Standard JS](https://standardjs.com/rules.html) Please have a read through this as well if you have time.
 
 ### Syntax
 Readability is key.  Above everything else, always try and name things sensibly and allow some breathing space in your code.  We'd rather have more spaces and sensible grouping of computations and assignments than none at all.  Also remember to comment as much as you like.  More comments mean happier developers!
@@ -512,11 +539,403 @@ Readability is key.  Above everything else, always try and name things sensibly 
 Indent with 2 spaces.  Absolutely no tabs
 ```js
 // Bad
-    var foo = 'bar';
+    const foo = 'bar';
 
 // Good
-  var foo = 'bar';
+  const foo = 'bar';
 ```
+
+#### References
+Use `const` for all your references; avoid using `var`.
+
+```js
+// Bad
+var a = 1;
+var b = 2;
+
+// Good
+const a = 1;
+const b = 2;
+```
+
+If you must reasign references use `let`
+as it is block scoped rather than function scoped
+
+```js
+// let and const only exist in the blocks they are defined in
+{
+  const a = 1;
+  let b = 2;
+}
+
+console.log(a); // Reference error
+```
+
+#### Objects
+Use the literal syntax for object creation
+```js
+// Bad
+const myObject = new Object();
+
+// Good
+const myObject = {}
+```
+
+Use object shorthand
+```js
+const someDude = "Some Dude";
+
+// Bad
+const obj = {
+  someDude: someDude
+}
+
+// Good
+const obj = {
+  someDude
+}
+```
+
+Group shorthand objects together.
+
+Only quote invalid identifiers.
+```js
+// Bad
+const obj = {
+  'some': "some",
+  'dude': "dude",
+  'some-thing': "some thing"
+}
+
+// Good
+const obj = {
+  some: "some",
+  dude: "dude",
+  'some-thing': "some thing"
+}
+```
+
+#### Arrays
+Use the literal syntax for array creation
+```js
+// Bad
+const myArray = new Array();
+
+// Good
+const myArray = [];
+```
+
+#### Destructuring
+Use the destructuring when accessing multiple properties of an object
+
+```js
+// Bad
+function getFullName(user) {
+  const firstName = user.firstName;
+  const lastName = user.lastName;
+
+  return `${firstName} ${lastName}`;
+}
+
+// Good
+function getFullName(user) {
+  const { firstName, lastName } = user;
+  return `${firstName} ${lastName}`;
+}
+
+// Best
+function getFullName({ firstName, lastName }) {
+  return `${firstName} ${lastName}`;
+}
+```
+
+Use array destructuring
+```js
+const arr = [1, 2, 3, 4];
+
+// Bad
+const first = arr[0];
+const second = arr[1];
+
+// Good
+const [first, second] = arr;
+```
+
+Use object destructuring for multiple return values, not array destructuring.
+
+> Why? You can add new properties over time or change the order of things without breaking call sites.
+
+```js
+// Bad
+function processInput(input) {
+  // then a miracle occurs
+  return [left, right, top, bottom];
+}
+
+// The caller needs to think about the order of return data
+const [left, __, top] = processInput(input);
+
+// Good
+function processInput(input) {
+  // Then a miracle occurs
+  return { left, right, top, bottom };
+}
+
+// The caller selects only the data they need
+const { left, top } = processInput(input);
+```
+
+#### Strings
+Use single quotes `''` for strings.
+
+```js
+// Bad
+console.log("hello there")
+console.log(`hello there`)
+
+// Good
+console.log('hello there')
+$('<div class="box">')
+console.log(`hello ${name}`)
+```
+
+Use template strings instead of concatination
+> Why? Template strings give you a readable, concise syntax with proper newlines and string interpolation features.
+
+```js
+// Bad
+function sayHi(name) {
+  return 'How are you, ' + name + '?';
+}
+
+// Bad
+function sayHi(name) {
+  return ['How are you, ', name, '?'].join();
+}
+
+// Bad
+function sayHi(name) {
+  return `How are you, ${ name }?`;
+}
+
+// Good
+function sayHi(name) {
+  return `How are you, ${name}?`;
+}
+```
+
+Don't use `eval()`
+
+#### Functions
+Use named functions expressions instead of function declarations
+
+>Why? Function declarations are hoisted, which means that it’s easy - too easy - to reference the function before it is defined in the file. This harms readability and maintainability. If you find that a function’s definition is large or complex enough that it is interfering with understanding the rest of the file, then perhaps it’s time to extract it to its own module! Don’t forget to explicitly name the expression, regardless of whether or not the name is inferred from the containing variable (which is often the case in modern browsers or when using compilers such as Babel). This eliminates any assumptions made about the Error’s call stack. (Discussion)
+
+```js
+// Bad
+function foo() {
+  // ...
+}
+
+// Bad
+const foo = function () {
+  // ...
+};
+
+// Good
+// Lexical name distinguished from the variable-referenced invocation(s)
+const short = function longUniqueMoreDescriptiveLexicalFoo() {
+  // ...
+};
+```
+
+Never declare a function in a non function block (`if`, `while`, etc). Assign the function to a variable instead.
+
+Never name a perameter `arguments`. This will take precedent over the `arguments` object that is given to every function scope.
+
+```js
+// Bad
+function foo(name, options, arguments) {
+  // ...
+}
+
+// Good
+function foo(name, options, args) {
+  // ...
+}
+```
+
+Never use `arguments`, opt to use rest syntax use `...` instead.
+
+> Why? `...` is explicit about which arguments you want pulled. Plus, rest arguments are a real Array, and not merely Array-like like arguments.
+
+```js
+// Bad
+function concatenateAll() {
+  const args = Array.prototype.slice.call(arguments);
+  return args.join('');
+}
+
+// Good
+function concatenateAll(...args) {
+  return args.join('');
+}
+```
+
+Never reassign perameters
+```js
+// Bad
+function f1(a) {
+  a = 1;
+  // ...
+}
+
+function f2(a) {
+  if (!a) { a = 1; }
+  // ...
+}
+
+// Good
+function f3(a) {
+  const b = a || 1;
+  // ...
+}
+
+function f4(a = 1) {
+  // ...
+}
+```
+
+#### Arrow Function
+When you must use an anonymous function (as when passing an inline callback), use arrow function notation.
+
+>Why? It creates a version of the function that executes in the context of this, which is usually what you want, and is a more concise syntax.
+
+>Why not? If you have a fairly complicated function, you might move that logic out into its own named function expression.
+
+```js
+// Bad
+[1, 2, 3].map(function (x) {
+  const y = x + 1;
+  return x * y;
+});
+
+// Good
+[1, 2, 3].map((x) => {
+  const y = x + 1;
+  return x * y;
+});
+```
+
+#### Classes and contructors
+Use the literal syntax for object creation
+
+#### Modules
+Always use modules (import/export) over a non-standard module system. You can always transpile to your preferred module system.
+
+Why? Modules are the future, let’s start using the future now.
+
+```js
+// Bad
+const AirbnbStyleGuide = require('./AirbnbStyleGuide');
+module.exports = AirbnbStyleGuide.es6;
+
+// OK
+import AirbnbStyleGuide from './AirbnbStyleGuide';
+export default AirbnbStyleGuide.es6;
+
+// Best
+import { es6 } from './AirbnbStyleGuide';
+export default es6;
+```
+
+#### Iterators and Generators
+Use the literal syntax for object creation
+
+#### Properties
+Use the literal syntax for object creation
+
+#### Variables
+Always use `const` and `let` to declare variables to ensure you don't polute the global namespace
+
+```js
+// Bad
+someVar = something
+
+// Good
+const someVar = something
+```
+
+Use one `const` or `let` per variable or assignment
+```js
+// Bad
+const something = someFunction(),
+    somethingElse = true,
+    aThirdThing = 3;
+
+// Good
+const something = someFunction();
+const somethingElse = true;
+const aThirdThing = 3;
+```
+
+Group `const`s and `let`s
+```js
+// Bad
+const something;
+let i;
+const somethingElse;
+
+// Good
+const something;
+const somethingElse;
+let i;
+```
+
+#### Hoisting
+Use the literal syntax for object creation
+
+#### Comparison operators & Equality
+Use the literal syntax for object creation
+
+#### Blocks
+Use the literal syntax for object creation
+
+#### Objects
+Use the literal syntax for object creation
+
+#### Control Statement
+Use the literal syntax for object creation
+
+#### Comments
+Use the literal syntax for object creation
+
+#### Whitespace
+Use the literal syntax for object creation
+
+#### Commas
+Use the literal syntax for object creation
+
+#### Semicolons
+Use the literal syntax for object creation
+
+#### Typecasting and Coercion
+Use the literal syntax for object creation
+
+#### Naming Conventions
+Use the literal syntax for object creation
+
+#### Accessors
+Use the literal syntax for object creation
+
+#### Events
+Use the literal syntax for object creation
+
+#### jQuery
+Use the literal syntax for object creation
+
+#### More Reading
+Use the literal syntax for object creation
 
 #### Line Lengths
 Soft (desirable) limit of **80**, hard limit of **120**.
@@ -524,12 +943,12 @@ Soft (desirable) limit of **80**, hard limit of **120**.
 ### Spacing
 Introduce spacing to ensure that parts of code are sensibly grouped into their various roles
 ```js
-var val = 1;
-var id;
+const val = 1;
+let id;
 
-function init(opts) {
+function init (opts) {
   // Definition
-  var startVal;
+  let startVal;
 
   // Assignment
   id = opts.name;
@@ -566,7 +985,7 @@ for (i = 0; i < 10; i ++) {
 }
 
 // Bad
-function (i) {
+function(i) {
   ...
 }
 
@@ -582,7 +1001,7 @@ function(i)
 }
 
 // Good
-function(i) {
+function (i) {
  ...
 }
 ```
@@ -590,7 +1009,7 @@ function(i) {
 ### Operators
 Use spaces with operators
 ```js
-var c = a + b;
+const c = a + b;
 ```
 
 ### IIFEs
@@ -598,14 +1017,14 @@ Instantly Invoked Function Expressions, or closures are used to isolate the scop
 
 Always ensure there is a trailing comma at the end of the IIFE to avoid *invokception* through code concatenation
 ```js
-(function() {
+(function () {
   // JavaScript magic goes here
 })();
 ```
 
 Variables from outside the IIFE's scope can be passed in via reference like so:
 ```js
-(function($) {
+(function ($) {
   // jQuery jazz goes here
 })(jQuery);
 ```
@@ -613,7 +1032,7 @@ Variables from outside the IIFE's scope can be passed in via reference like so:
 ### Strict Mode
 Always enable strict mode at the top of your IFFE to ensure more predictable and consistent behaviour from browsers:
 ```js
-(function() {
+(function () {
   'use strict';
 
   // JavaScript magic goes here
@@ -621,42 +1040,42 @@ Always enable strict mode at the top of your IFFE to ensure more predictable and
 ```
 
 ### Variables
-Always use the `var` keyword to declare a variable.  Not doing so will populate the global scope in strict mode which is bad times fo your and your dependencies.
+Always use the `const` or `let` keyword to declare a variable.  Not doing so will populate the global scope in strict mode which is bad times fo your and your dependencies.
 ```js
-var foo = 'bar';
+const foo = 'bar';
 ```
 
-Always declare each variable on a new line with a new var keyword
+Always declare each variable on a new line with a new const / let keyword
 ```js
-var foo = 'bar';
-var bar = foo;
-var baz = {};
+const foo = 'bar';
+const bar = foo;
+const baz = {};
 ```
 
 #### Naming Conventions
 Always use camel casing for no-specific variables
 ```js
-var myObject = {
+const myObject = {
   value: 1
 }
 ```
 
 Prefix any jQuery object with a `$` for readability
 ```js
-var $myDiv = $('div');
+const $myDiv = $('div');
 ```
 
 Constant like values (those that will never be changed once set) can be styled like so:
 ```js
-var PLUGIN_NAME = 'my-plugin';
+const PLUGIN_NAME = 'my-plugin';
 ```
 
 #### Hoisting & Scope
 Declare all variables at the top of their scope; you can always assign them later if you need to.
 ```js
-function objectLength(obj) {
-  var length = 0;
-  var prop;
+function objectLength (obj) {
+  let length = 0;
+  let prop;
 
   for (prop in obj) {
     length ++;
@@ -668,14 +1087,14 @@ function objectLength(obj) {
 
 Since we write all our JS inside IFFEs, all variables should be declared at the top of the closure after declaring strict mode
 ```js
-(function($) {
+(function ($) {
   'use strict';
 
-  var intervalId;
-  var interval = 1000;
-  var $element = $('[data-element-name]');
+  let intervalId;
+  const interval = 1000;
+  const $element = $('[data-element-name]');
 
-  intervalId = setInterval(function() {
+  intervalId = setInterval(function () {
     clearTimeout(timeoutId);
 
     $element.toggleClass('glow');
@@ -689,12 +1108,12 @@ More detailed information on hoisting [can be found here](https://github.com/air
 Sometimes it makes sense to group variables into objects for cleaner and more semantic JS
 
 ```js
-var module = {
+const module = {
   $header: $('.module-header'),
   $content: $('.module-content')
 };
 
-var plugin = {
+const plugin = {
   $button: $('.plugin-button'),
   $content: $('.plugin-content')
 };
@@ -750,12 +1169,12 @@ Keeping JS as DRY (Don't Repeat Yourself) as possible is paramount to creating c
 calculateModulePosition($module);
 
 // Calculate position on orientation change
-$(window).on('orientationchange', function() {
+$(window).on('orientationchange', function () {
   calculateModulePosition($module);
 });
 
-function calculateModulePosition($module) {
-  var dimensions = {
+function calculateModulePosition ($module) {
+  const dimensions = {
     top: $module.offset().top,
     height: $module.innerHeight()
   };
@@ -770,7 +1189,7 @@ function calculateModulePosition($module) {
 When writing functions that accept arguments it's often easier to accept a single object argument for changeable values:
 ```js
 // Initial code
-function createModule(width, height, done) {
+function createModule (width, height, done) {
   width = width || 300;
   height = height || 200;
 
@@ -780,7 +1199,7 @@ function createModule(width, height, done) {
 }
 
 // Edited code
-function createModule(width, height, offset, done) {
+function createModule (width, height, offset, done) {
   width = width || 300;
   height = height || 200;
   offset = offset || 0;
@@ -791,7 +1210,7 @@ function createModule(width, height, offset, done) {
 }
 
 // Further edited code
-function createModule(width, height, offset, resize, done) {
+function createModule (width, height, offset, resize, done) {
   width = width || 300;
   height = height || 200;
   offset = offset || 0;
@@ -807,8 +1226,8 @@ function createModule(width, height, offset, resize, done) {
 }
 
 // A better approach using composition and extension
-function createModule(opts, done) {
-  var defaults = {
+function createModule (opts, done) {
+  const defaults = {
     width: 300,
     height: 200,
     offset: 0,
@@ -828,15 +1247,15 @@ Objects are the building blocks of JavaScript.  Functions are objects as are Arr
 You should always define objects using the literal notation
 ```js
 // Don't do this
-var defaults = new Object();
+const defaults = new Object();
 
 // Do this
-var defaults = {};
+const defaults = {};
 ```
 
 One thing that simple objects are incredibly useful for is key, value parings like associative arrays in PHP.
 ```js
-var defaults = {
+const defaults = {
   width: 300
 };
 
@@ -855,10 +1274,10 @@ function getDefault(key) {
 Just like objects, you should always define arrays using the literal notation
 ```js
 // Don't do this
-var list = new Array();
+const list = new Array();
 
 // Do this
-var list = [];
+const list = [];
 ```
 
 ### jQuery
@@ -867,7 +1286,7 @@ jQuery is very powerful and often overlooked for its simplicity in shimming the 
 #### Limiting Scope
 Using parent scopes is more performance friendly and avoids querying the entire DOM.  It also ensures there a solid relationship between larger plugins/modules/blocks and their child elements.
 ```js
-var elements = {
+const elements = {
   $module: $('.module')
 };
 
@@ -878,19 +1297,19 @@ elements.$footer = elements.$module.find('.module__footer');
 #### Defining Plugins
 Here's a simple (and contrived), but flexible approach to creating jQuery plugins:
 ```js
-(function($) {
+(function ($) {
   // Define jQuery plugin
-  $.fn.myPlugin = function myPluginDefinition(opts) {
+  $.fn.myPlugin = function myPluginDefinition (opts) {
     return plugin($(this), opts);
   };
 
-  function plugin($element, opts) {
+  function plugin ($element, opts) {
     opts = opts || {};
 
     // Keep track of your plugin name
-    var PLUGIN_NAME = 'myPlugin';
+    const PLUGIN_NAME = 'myPlugin';
     // Assign all your public API methods to a single object
-    var api = {};
+    const api = {};
 
     // Pair methods with the API
     api.getName = getName;
@@ -900,7 +1319,7 @@ Here's a simple (and contrived), but flexible approach to creating jQuery plugin
 
     // All inner functions will be hoisted to the top of the scope,
     // but placing them down here allows the business logic to be immediately readable in the plugin
-    function getName() {
+    function getName () {
       return PLUGIN_NAME;
     }
   }
@@ -918,9 +1337,16 @@ Another advantage of using data attributes is that they can hold data which can 
 
 ```js
 // JS
-$('[data-plugin-init]').each(function() {
+$('[data-plugin-init]').each(function () {
   $(this).myPlugin({
     name: $(this).attr('data-plugin-init')
   });
 });
 ```
+
+### Parting Words
+Be consistent.
+
+If you’re editing code, take a few minutes to look at the code around you and determine its style. If they use spaces around all their arithmetic operators, you should too. If their comments have little boxes of hash marks around them, make your comments have little boxes of hash marks around them too.
+
+The point of having style guidelines is to have a common vocabulary of coding so people can concentrate on what you’re saying rather than on how you’re saying it. We present global style rules here so people know the vocabulary, but local style is also important. If code you add to a file looks drastically different from the existing code around it, it throws readers out of their rhythm when they go to read it. Avoid this.
